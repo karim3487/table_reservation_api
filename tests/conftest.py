@@ -9,7 +9,7 @@ from app.main import app
 
 settings = Settings()
 
-engine = create_engine(settings.db_test_url)
+engine = create_engine(settings.db_url)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 

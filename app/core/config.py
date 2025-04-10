@@ -1,8 +1,11 @@
+import os
+
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
     # App
+    ENV: str = 'dev'
     DEBUG: bool = False
     APP_NAME: str = "Table Reservation API"
     API_VERSION: str
@@ -14,8 +17,8 @@ class Settings(BaseSettings):
     DB_HOST: str = "localhost"
     DB_PORT: int = 5432
 
-    # Tests
-    DB_TEST_NAME: str = "table_reservation_test"
+    # # Tests
+    # DB_TEST_NAME: str = "table_reservation_test"
 
     @property
     def db_url(self) -> str:
@@ -24,13 +27,14 @@ class Settings(BaseSettings):
             f"@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
         )
 
-    # Tests
-    @property
-    def db_test_url(self) -> str:
-        return (
-            f"postgresql+psycopg2://{self.DB_USER}:{self.DB_PASSWORD}"
-            f"@{self.DB_HOST}:{self.DB_PORT}/{self.DB_TEST_NAME}"
-        )
+    # # Tests
+    # @property
+    # def db_test_url(self) -> str:
+    #     return (
+    #         f"postgresql+psycopg2://{self.DB_USER}:{self.DB_PASSWORD}"
+    #         f"@{self.DB_HOST}:{self.DB_PORT}/{self.DB_TEST_NAME}"
+    #     )
 
     class Config:
-        env_file = ".env"
+        env = os.getenv("ENV", "dev")
+        env_file = f".env.{env}" if env != "dev" else ".env"

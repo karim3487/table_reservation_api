@@ -31,13 +31,23 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
     )
 
 
+def sanitize_errors(errors: list[dict]) -> list[dict]:
+    sanitized = []
+    for err in errors:
+        err = err.copy()
+        if "ctx" in err and "error" in err["ctx"]:
+            err["ctx"] = err["ctx"].copy()
+            err["ctx"]["error"] = str(err["ctx"]["error"])
+        sanitized.append(err)
+    return sanitized
+
+
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
-    logger.warning(
-        "ValidationError | %s %s | %s", request.method, request.url.path, exc.errors()
-    )
+    errors = sanitize_errors(exc.errors())
+    logger.warning("ValidationError | %s %s | %s", request.method, request.url.path, errors)
     return JSONResponse(
         status_code=422,
-        content={"detail": exc.errors()},
+        content={"detail": errors},
     )
 
 
