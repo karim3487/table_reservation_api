@@ -16,7 +16,7 @@ services:
   test-db:
     image: postgres:15
     environment:
-      POSTGRES_DB: ${DB_NAME:-table_reserva}${DB_SUFFIX:-}
+      POSTGRES_DB: ${DB_NAME:-table_reserver}${DB_SUFFIX:-}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
