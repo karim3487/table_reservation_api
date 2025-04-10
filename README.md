@@ -22,7 +22,7 @@ cd table_reservation_api
 
 ```bash
 cp env.example .env
-cp env.example .env.prod
+cp env.prod.example .env.prod
 
 cp env.test.example .env.test
 ```
