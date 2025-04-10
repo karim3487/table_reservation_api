@@ -6,9 +6,7 @@ from pydantic import BaseModel, Field, field_validator
 class ReservationBase(BaseModel):
     customer_name: str = Field(..., min_length=2, max_length=100)
     table_id: int
-    reservation_time: datetime = Field(
-        ..., examples=["2025-04-10T21:30:00+03:00"]
-    )
+    reservation_time: datetime = Field(..., examples=["2025-04-10T21:30:00+03:00"])
     duration_minutes: int = Field(
         ..., ge=1, le=240, description="Duration must be between 1 and 240 minutes"
     )

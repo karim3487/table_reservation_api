@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, status
 from app.schemas import ReservationRead, ReservationCreate
 from app.services.reservation_service import ReservationService
 
-ReservationRouter = APIRouter(prefix="/v1/reservation", tags=["reservation"])
+ReservationRouter = APIRouter(prefix="/v1/reservations", tags=["reservations"])
 
 
 @ReservationRouter.get("/", response_model=list[ReservationRead])
@@ -17,7 +17,7 @@ def index(
     ]
 
 
-@ReservationRouter.get("/{id}", response_model=ReservationRead)
+@ReservationRouter.get("/{reservation_id}", response_model=ReservationRead)
 def get(reservation_id: int, reservation_service: ReservationService = Depends()):
     return reservation_service.get(reservation_id)
 
@@ -34,7 +34,7 @@ def create(
     return reservation_service.create(reservation)
 
 
-@ReservationRouter.patch("/{id}", response_model=ReservationRead)
+@ReservationRouter.patch("/{reservation_id}", response_model=ReservationRead)
 def update(
     reservation_id: int,
     author: ReservationCreate,
@@ -43,6 +43,6 @@ def update(
     return reservation_service.update(reservation_id, author)
 
 
-@ReservationRouter.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@ReservationRouter.delete("/{reservation_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete(reservation_id: int, reservation_service: ReservationService = Depends()):
     return reservation_service.delete(reservation_id)

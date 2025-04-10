@@ -15,7 +15,7 @@ def index(
     return [table for table in table_service.list(page_size, start_index)]
 
 
-@TableRouter.get("/{id}", response_model=TableRead)
+@TableRouter.get("/{table_id}", response_model=TableRead)
 def get(table_id: int, table_service: TableService = Depends()):
     return table_service.get(table_id)
 
@@ -32,7 +32,7 @@ def create(
     return table_service.create(table)
 
 
-@TableRouter.patch("/{id}", response_model=TableRead)
+@TableRouter.patch("/{table_id}", response_model=TableRead)
 def update(
     table_id: int,
     author: TableCreate,
@@ -41,6 +41,6 @@ def update(
     return table_service.update(table_id, author)
 
 
-@TableRouter.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@TableRouter.delete("/{table_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete(table_id: int, table_service: TableService = Depends()):
     return table_service.delete(table_id)

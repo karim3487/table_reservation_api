@@ -14,11 +14,22 @@ class Settings(BaseSettings):
     DB_HOST: str = "localhost"
     DB_PORT: int = 5432
 
+    # Tests
+    DB_TEST_NAME: str = "table_reservation_test"
+
     @property
     def db_url(self) -> str:
         return (
             f"postgresql+psycopg2://{self.DB_USER}:{self.DB_PASSWORD}"
             f"@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        )
+
+    # Tests
+    @property
+    def db_test_url(self) -> str:
+        return (
+            f"postgresql+psycopg2://{self.DB_USER}:{self.DB_PASSWORD}"
+            f"@{self.DB_HOST}:{self.DB_PORT}/{self.DB_TEST_NAME}"
         )
 
     class Config:

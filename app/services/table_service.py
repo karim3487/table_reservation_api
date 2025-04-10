@@ -17,7 +17,7 @@ class TableService:
         if exists:
             raise exceptions.DuplicateTableName(table.name)
 
-        return self.repository.create(Table(**table.dict()))
+        return self.repository.create(Table(**table.model_dump()))
 
     def delete(self, table_id: int) -> None:
         table = self.repository.get(table_id)
@@ -48,5 +48,5 @@ class TableService:
         if other and other.id != table_id:
             raise exceptions.TableUpdateConflict(table_update.name)
 
-        updated_table = Table(id=table_id, **table_update.dict())
+        updated_table = Table(id=table_id, **table_update.model_dump())
         return self.repository.update(updated_table)

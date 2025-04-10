@@ -46,8 +46,7 @@ class ReservationService:
         if overlapping:
             raise exceptions.ReservationTimeConflict(data.table_id)
 
-        # Создаем бронирование
-        reservation = Reservation(**data.dict())
+        reservation = Reservation(**data.model_dump())
 
         return self.reservation_repository.create(reservation)
 
@@ -59,7 +58,7 @@ class ReservationService:
             raise exceptions.ReservationNotFound()
 
         updated_reservation = Reservation(
-            id=reservation_id, **reservation_update.dict()
+            id=reservation_id, **reservation_update.model_dump()
         )
         return self.reservation_repository.update(updated_reservation)
 

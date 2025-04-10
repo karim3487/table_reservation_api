@@ -6,10 +6,7 @@ from app.routers import routers
 
 settings = Settings()
 
-app = FastAPI(
-    title=settings.APP_NAME,
-    version=settings.API_VERSION
-)
+app = FastAPI(title=settings.APP_NAME, version=settings.API_VERSION)
 
 
 @app.get("/")
