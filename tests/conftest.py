@@ -1,12 +1,11 @@
 import pytest
+from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from app.core.config import Settings
-from app.main import app
 from app.db import Base, get_db_session
-from fastapi.testclient import TestClient
-
+from app.main import app
 
 settings = Settings()
 

@@ -1,5 +1,5 @@
-from app.schemas.table import TableBase, TableRead, TableCreate
-from app.schemas.reservation import ReservationBase, ReservationRead, ReservationCreate
+from app.schemas.reservation import ReservationBase, ReservationCreate, ReservationRead
+from app.schemas.table import TableBase, TableCreate, TableRead
 
 __all__ = [
     "TableBase",

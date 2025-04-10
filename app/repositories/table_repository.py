@@ -1,6 +1,6 @@
+from fastapi import Depends
 from sqlalchemy.orm import Session
 
-from fastapi import Depends
 from app.db import get_db_session
 from app.models import Table
 
@@ -13,7 +13,14 @@ class TableRepository:
 
     def list(self, limit: int | None, start: int | None) -> list[Table]:
         query = self.db.query(Table)
-        return query.offset(start).limit(limit).all()
+
+        if start is not None:
+            query = query.offset(start)
+
+        if limit is not None:
+            query = query.limit(limit)
+
+        return query.all()
 
     def get(self, table_id: int) -> Table | None:
         return self.db.get(Table, table_id)

@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 
 from app.core.config import Settings
+from app.core.logging import setup_logging
+from app.core.middleware import register_middleware
 from app.errors import register_error_handlers
 from app.routers import routers
+
+setup_logging()
 
 settings = Settings()
 
@@ -20,3 +24,6 @@ for router in routers:
 
 # Exceptions
 register_error_handlers(app)
+
+# Middleware
+register_middleware(app)
